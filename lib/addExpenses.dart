@@ -197,16 +197,37 @@ class _AddexpenseState extends State<Addexpense> {
                         double.tryParse(_amountController.text) ?? 0;
                     String category = _categoryController.text.trim();
                     DateTime date = selectedDate ?? DateTime.now();
-                    if (title.isEmpty ||
-                        category.isEmpty) {
+                    if (title.isEmpty || category.isEmpty || amount == null || amount <= 0) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Please fill all fields!"),
+                        SnackBar(content: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20), // 👈 height yahin se
+                          child: Center(child: Text("Please fill all fields correctly")),
                         ),
+
+                          backgroundColor: Colors.red,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight:Radius.circular(20) )
+                          ),
+                        padding: EdgeInsets.symmetric(vertical: 10),),
+
                       );
                       return;
                     }
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20), // 👈 height yahin se
+                        child: Text("Successfully Saved"),
+                      ),
+
+                        backgroundColor: Colors.green,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight:Radius.circular(20) )
+                      ),),
+
+                    );
+
                     saveExpense(title, amount, category, date);
+                    Navigator.pop(context);
                   },
                   child: const Text(
                     'Save Expense',

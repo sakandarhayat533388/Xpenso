@@ -5,10 +5,12 @@ import 'package:xpenso/splash.dart';
 
 import 'expenseModel.dart';
 void main() async{
+
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter(); // Hive initialize
   Hive.registerAdapter(ExpenseAdapter()); // adapter register
   await Hive.openBox<Expense>('expensesBox');
+
   runApp(const MyApp());
 }
 
