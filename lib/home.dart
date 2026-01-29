@@ -30,7 +30,92 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Xpenso'),
+      appBar: CustomAppBar(title: 'Xpenso',
+        showMenu: true,
+      ),
+
+      drawer: Drawer(
+        child: Column(
+          children: [
+
+            // 🔹 Drawer Header
+            DrawerHeader(
+              decoration: BoxDecoration(
+              color: primaryEnd
+              ),
+              child: Container(
+                width: double.infinity,
+                child: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: const [
+                      Icon(Icons.account_balance_wallet,
+                          size: 50, color: Colors.white),
+                      SizedBox(height: 10),
+                      Text(
+                        'Xpenso',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'Manage your expenses',
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            // 🔹 Menu Items
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text('Home'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+
+            ListTile(
+              leading: const Icon(Icons.add),
+              title: const Text('Add Expense'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const Addexpense(),
+                  ),
+                );
+              },
+            ),
+
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              onTap: () {
+                Navigator.pop(context);
+                // Settings screen baad me add kar sakte ho
+              },
+            ),
+
+            const Spacer(),
+
+            const Divider(),
+
+            const Padding(
+              padding: EdgeInsets.all(12),
+              child: Text(
+                'Version 1.0.0',
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
+          ],
+        ),
+      ),
       body: Column(
         children: [
           const SizedBox(height: 10),

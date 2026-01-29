@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:xpenso/splash.dart';
 
@@ -10,7 +9,6 @@ void main() async{
   await Hive.initFlutter(); // Hive initialize
   Hive.registerAdapter(ExpenseAdapter()); // adapter register
   await Hive.openBox<Expense>('expensesBox');
-
   runApp(const MyApp());
 }
 
