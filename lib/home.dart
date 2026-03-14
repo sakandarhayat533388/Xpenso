@@ -4,6 +4,7 @@ import 'package:xpenso/addExpenses.dart';
 import 'package:xpenso/color.dart';
 import 'package:xpenso/customappbar.dart';
 import 'package:xpenso/expenseCard.dart';
+import 'package:xpenso/settings_screen.dart';
 import 'package:xpenso/singleExpenseCard.dart';
 import 'expenseModel.dart';
 
@@ -30,27 +31,39 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Xpenso',
+      appBar: CustomAppBar(
+        title: 'Xpenso',
         showMenu: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const SettingsScreen()),
+              );
+            },
+          ),
+        ],
       ),
 
       drawer: Drawer(
         child: Column(
           children: [
-
             // 🔹 Drawer Header
             DrawerHeader(
-              decoration: BoxDecoration(
-              color: primaryEnd
-              ),
+              decoration: BoxDecoration(color: primaryEnd),
               child: Container(
                 width: double.infinity,
                 child: Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: const [
-                      Icon(Icons.account_balance_wallet,
-                          size: 50, color: Colors.white),
+                      Icon(
+                        Icons.account_balance_wallet,
+                        size: 50,
+                        color: Colors.white,
+                      ),
                       SizedBox(height: 10),
                       Text(
                         'Xpenso',
@@ -86,9 +99,7 @@ class _HomeState extends State<Home> {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (_) => const Addexpense(),
-                  ),
+                  MaterialPageRoute(builder: (_) => const Addexpense()),
                 );
               },
             ),
@@ -98,7 +109,10 @@ class _HomeState extends State<Home> {
               title: const Text('Settings'),
               onTap: () {
                 Navigator.pop(context);
-                // Settings screen baad me add kar sakte ho
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const SettingsScreen()),
+                );
               },
             ),
 
@@ -145,7 +159,9 @@ class _HomeState extends State<Home> {
               valueListenable: box.listenable(),
               builder: (context, Box<Expense> expensesBox, _) {
                 if (expensesBox.isEmpty) {
-                  return Expanded(child: const Center(child: Text('No expenses added yet')));
+                  return Expanded(
+                    child: const Center(child: Text('No expenses added yet')),
+                  );
                 }
 
                 return ListView.builder(

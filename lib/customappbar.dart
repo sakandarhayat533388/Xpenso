@@ -4,9 +4,10 @@ import 'color.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool showLeading;
-  final bool showMenu; // 👈 NEW
+  final bool showMenu;
   final VoidCallback? onBack;
-  final VoidCallback? onMenuTap; // 👈 NEW
+  final VoidCallback? onMenuTap;
+  final List<Widget>? actions;
 
   const CustomAppBar({
     super.key,
@@ -15,6 +16,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.showMenu = false,
     this.onBack,
     this.onMenuTap,
+    this.actions,
   });
 
   @override
@@ -23,21 +25,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: primaryEnd,
       elevation: 0,
       centerTitle: true,
-
-      // 👇 Leading Icon Logic
       leading: showLeading
           ? IconButton(
-        icon: const Icon(Icons.arrow_back, color: Colors.white),
-        onPressed: onBack ?? () => Navigator.pop(context),
-      )
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: onBack ?? () => Navigator.pop(context),
+            )
           : showMenu
           ? IconButton(
-        icon: const Icon(Icons.menu, color: Colors.white),
-        onPressed: onMenuTap ??
-                () => Scaffold.of(context).openDrawer(),
-      )
+              icon: const Icon(Icons.menu, color: Colors.white),
+              onPressed: onMenuTap ?? () => Scaffold.of(context).openDrawer(),
+            )
           : null,
-
       title: Text(
         title,
         style: const TextStyle(
@@ -46,6 +44,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
+      actions: actions,
     );
   }
 
